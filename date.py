@@ -20,9 +20,8 @@ class Date:
 
     @staticmethod
     def is_leap_year(year: int) -> bool:
-        '''Calcular si el año es bisiesto'''
         resultado = False
-        if year % 4 == 0 and year % 100 != 0 and year % 400 == 0:
+        if year % 4 == 0 and year % 100 != 0 or year % 4 == 0 and year % 100 == 0 and year % 400 == 0:
             resultado = True
         return resultado
 
