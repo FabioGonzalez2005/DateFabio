@@ -11,12 +11,12 @@ class Date:
         self.day = day
         self.month = month
         self.year = year
-        if day <= 0 or day > 31:
-            day = 1
-        if month <= 0 or month > 12:
-            month = 1
-        if year < 1900 or year > 2050:
-            year = 1900
+        if self.day <= 0 or self.day > 31:
+            self.day = 1
+        if self.month <= 0 or self.month > 12:
+            self.month = 1
+        if self.year < 1900 or self.year > 2050:
+            self.year = 1900
 
     @staticmethod
     def is_leap_year(year: int) -> bool:
@@ -53,27 +53,26 @@ class Date:
     @property
     def weekday(self) -> int:
         '''Día de la semana de la fecha (0 para domingo, ..., 6 para sábado).'''
-        day = self.get_delta_days()
-        return (day + 1) % 7
+        return (self.get_delta_days() + 1) % 7
 
     @property
     def is_weekend(self) -> bool:
         '''Saber si el día es entre lunes y viernes.'''
-        if self.weekday > 5:
+        if self.weekday > 5 or self.weekday == 0:
             return True
         else:
             return False
         
     @property
     def short_date(self) -> str:
-        ''' Poner la fecha corta (02/09/2003)'''
+        '''Poner la fecha corta (02/09/2003)'''
         return f"{self.day:02d}/{self.month:02d}/{self.year}"
 
     def __str__(self):
         '''Poner la fecha de forma larga'''
-        dias_semana = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SABADO"]
+        dias_semana = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SABADO",]
         meses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"]
-        return f"{dias_semana[self.weekday]} {self.weekday} DE {meses[self.month]} DE {self.year}"
+        return f"{dias_semana[self.weekday]} {self.day} DE {meses[self.month - 1]} DE {self.year}"
 
     def __add__(self, days: int) -> Date:
         '''Sumar un número de días a la fecha'''
