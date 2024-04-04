@@ -66,8 +66,17 @@ class Date:
     @property
     def short_date(self) -> str:
         '''Poner la fecha corta (02/09/2003)'''
-        return f"{self.day:02d}/{self.month:02d}/{self.year}"
+        day = self.day
+        month = self.month
 
+        if self.day < 10:
+            day = '0' + str(self.day)
+
+        if self.month < 10:
+            month = '0' + str(self.month)
+    
+        return f"{day}/{month}/{self.year}"
+        
     def __str__(self):
         '''Poner la fecha de forma larga'''
         dias_semana = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SABADO",]
