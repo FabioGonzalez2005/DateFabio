@@ -53,12 +53,13 @@ class Date:
     @property
     def weekday(self) -> int:
         '''Día de la semana de la fecha (0 para domingo, ..., 6 para sábado).'''
-        return (self.get_delta_days() + 1) % 7
+        dayInWeek = (self.get_delta_days() + 1) % 7
+        return dayInWeek
 
     @property
     def is_weekend(self) -> bool:
         '''Saber si el día es entre lunes y viernes.'''
-        if self.weekday > 5 or self.weekday == 0:
+        if self.weekday == 0 or self.weekday > 5:
             return True
         else:
             return False
@@ -109,6 +110,19 @@ class Date:
             return self.get_delta_days() - other.get_delta_days()
         
         '''2) Restar un número de días la fecha -> Nueva fecha'''
+        year = self.year
+        month = self.month
+        day = self.day
+
+        day -= other
+        while day < 1:
+            month -= 1
+            if month < 1:
+                month = 12
+                year -= 1
+            day += Date.days_in_month(month, year)
+
+        return Date(day, month, year)
 
     def __lt__(self, other: Date) -> bool:
         return self.get_delta_days() < other.get_delta_days()
